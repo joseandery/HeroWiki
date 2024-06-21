@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroWiki", "HeroWiki\HeroWiki.csproj", "{468BE612-F6F7-466C-B424-6F7DB622292A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{468BE612-F6F7-466C-B424-6F7DB622292A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468BE612-F6F7-466C-B424-6F7DB622292A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468BE612-F6F7-466C-B424-6F7DB622292A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468BE612-F6F7-466C-B424-6F7DB622292A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F027C71-A9F3-4BEF-B597-0AB43F2E37C4}
+	EndGlobalSection
+EndGlobal
