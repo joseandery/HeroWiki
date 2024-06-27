@@ -3,12 +3,15 @@ using HeroWiki_Console;
 
 
 var HeroDAL = new HeroDAL();
+
+
+//HeroDAL.Create(new Hero("Garoto Goma", "Flexibilidade!"));
+
+HeroDAL.Update(new Hero("Invisível, Mas Audível", "Te digo, você não me vê"), 2);
+
+HeroDAL.Delete(3);
+
 var heroList = HeroDAL.Read();
-foreach ( var hero in heroList ) Console.WriteLine(hero);
-
-HeroDAL.Create(new Hero("Garoto Goma", "Flexibilidade!"));
-
-heroList = HeroDAL.Read();
 foreach (var hero in heroList) Console.WriteLine(hero);
 
 return;

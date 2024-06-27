@@ -39,5 +39,32 @@ namespace HeroWiki.Shared.Data.DB
             int retorno = cmd.ExecuteNonQuery();
             Console.WriteLine($"Linhas afetadas: {retorno}");
         }
+
+        public void Update(Hero hero, int id)
+        {
+            using var connection = new Connection().Connect();
+            connection.Open();
+            string sql = $"UPDATE Hero SET Name = @name, Slogan = @slogan WHERE Id = @id";
+            SqlCommand cmd = new SqlCommand(sql,connection);
+            cmd.Parameters.AddWithValue("@name", hero.Name);
+            cmd.Parameters.AddWithValue("@slogan", hero.Slogan);
+            cmd.Parameters.AddWithValue("@id", id);
+            int retorno = cmd.ExecuteNonQuery();
+            Console.WriteLine($"Linhas afetadas: {retorno}");
+
+        }
+
+        public void Delete(int id)
+        {
+            using var connection = new Connection().Connect();
+            connection.Open();
+
+            string sql = $"DELETE FROM Hero WHERE Id = @id";
+            SqlCommand cmd = new SqlCommand(sql,connection);
+
+            cmd.Parameters.AddWithValue("@id", id);
+            int retorno = cmd.ExecuteNonQuery();
+            Console.WriteLine($"Linhas afetadas: {retorno}");
+        }
     }
 }
