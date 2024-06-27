@@ -14,6 +14,7 @@ namespace HeroWiki_Console
             Slogan = slogan;
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Slogan { get; set; }
 
@@ -35,7 +36,7 @@ namespace HeroWiki_Console
 
         public override string ToString()
         {
-            return $@"Nome: {Name}";
+            return $@"Id: {Id} - Nome: {Name}";
         }
      
     }

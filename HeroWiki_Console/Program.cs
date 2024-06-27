@@ -1,20 +1,9 @@
 ﻿using HeroWiki.Shared.Data.DB;
 using HeroWiki_Console;
+using System.Net.WebSockets;
 
 
-var HeroDAL = new HeroDAL();
-
-
-//HeroDAL.Create(new Hero("Garoto Goma", "Flexibilidade!"));
-
-HeroDAL.Update(new Hero("Invisível, Mas Audível", "Te digo, você não me vê"), 2);
-
-HeroDAL.Delete(3);
-
-var heroList = HeroDAL.Read();
-foreach (var hero in heroList) Console.WriteLine(hero);
-
-return;
+var HeroDAL = new HeroDAL(new HeroWikiContext());
 
 Dictionary<string, Hero> HeroDict = new();
 
@@ -75,7 +64,7 @@ void HeroGet()
 {
     Console.Clear();
     Console.WriteLine("Listagem de Heróis\n");
-    foreach(var hero in HeroDict.Values)
+    foreach(var hero in HeroDAL.Read())
     {
         Console.WriteLine(hero);
     }
@@ -107,6 +96,6 @@ void HeroRegister()
     Console.Write("Digite o bordão do herói: ");
     string slogan = Console.ReadLine();
     Hero hero = new Hero(name, slogan);
-    HeroDict.Add(name, hero);
+    HeroDAL.Create(hero);
     Console.WriteLine($"Herói {name} adicionado!");
 }

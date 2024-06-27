@@ -10,61 +10,39 @@ namespace HeroWiki.Shared.Data.DB
 {
     public class HeroDAL
     {
+        private readonly HeroWikiContext context;
+
+        public HeroDAL(HeroWikiContext context)
+        {
+            this.context = context;
+        }
+
         public IEnumerable<Hero> Read()
         {
-            var list = new List<Hero>();
-            using var connection = new Connection().Connect();
-            connection.Open();
-            string sql = "SELECT * FROM Hero";
-            SqlCommand cmd = new SqlCommand(sql, connection);
-            using SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                string heroName = Convert.ToString(reader["Name"]);
-                string heroSlogan = Convert.ToString(reader["Slogan"]);
-                Hero hero = new(heroName, heroSlogan);
-                list.Add(hero);
-            }
-            return list;
+            return context.Hero.ToList();
         }
 
         public void Create(Hero hero)
         {
-            using var connection = new Connection().Connect();
-            connection.Open();
-            string sql = "INSERT INTO Hero (Name, Slogan) VALUES (@name, @slogan)";
-            SqlCommand cmd = new SqlCommand(sql,connection);
-            cmd.Parameters.AddWithValue("@name", hero.Name);
-            cmd.Parameters.AddWithValue("@slogan", hero.Slogan);
-            int retorno = cmd.ExecuteNonQuery();
-            Console.WriteLine($"Linhas afetadas: {retorno}");
+            context.Hero.Add(hero);
+            context.SaveChanges();
         }
 
-        public void Update(Hero hero, int id)
+        public void Update(Hero hero)
         {
-            using var connection = new Connection().Connect();
-            connection.Open();
-            string sql = $"UPDATE Hero SET Name = @name, Slogan = @slogan WHERE Id = @id";
-            SqlCommand cmd = new SqlCommand(sql,connection);
-            cmd.Parameters.AddWithValue("@name", hero.Name);
-            cmd.Parameters.AddWithValue("@slogan", hero.Slogan);
-            cmd.Parameters.AddWithValue("@id", id);
-            int retorno = cmd.ExecuteNonQuery();
-            Console.WriteLine($"Linhas afetadas: {retorno}");
-
+            context.Hero.Update(hero);
+            context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public void Delete(Hero hero)
         {
-            using var connection = new Connection().Connect();
-            connection.Open();
+            context.Hero.Remove(hero);
+            context.SaveChanges();
+        }
 
-            string sql = $"DELETE FROM Hero WHERE Id = @id";
-            SqlCommand cmd = new SqlCommand(sql,connection);
-
-            cmd.Parameters.AddWithValue("@id", id);
-            int retorno = cmd.ExecuteNonQuery();
-            Console.WriteLine($"Linhas afetadas: {retorno}");
+        public Hero? ReadByName(string name)
+        {
+            return context.Hero.FirstOrDefault(x => x.Name == name);
         }
     }
 }
