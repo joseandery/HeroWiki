@@ -3,6 +3,22 @@ using HeroWiki_Console;
 using System.Net.WebSockets;
 
 
+//// para teste de Power DAL
+
+//var powerDAL = new PowerDAL(new HeroWikiContext());
+
+////powerDAL.Create(new Power("Força"));
+
+//Power novo = new Power("Velocidade") { Id = 4};
+
+////powerDAL.Update(novo);
+
+//powerDAL.Delete(novo);
+
+//foreach(var power  in powerDAL.Read()) Console.WriteLine(power);
+
+//return;
+
 var HeroDAL = new HeroDAL(new HeroWikiContext());
 
 Dictionary<string, Hero> HeroDict = new();
