@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroWiki", "HeroWiki\HeroWiki.csproj", "{468BE612-F6F7-466C-B424-6F7DB622292A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroWiki", "HeroWiki\HeroWiki.csproj", "{468BE612-F6F7-466C-B424-6F7DB622292A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroWiki_Console", "HeroWiki_Console\HeroWiki_Console.csproj", "{5C1A91F7-61C5-4B93-BB61-7EFD2E87A4ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeroWiki_Console", "HeroWiki_Console\HeroWiki_Console.csproj", "{5C1A91F7-61C5-4B93-BB61-7EFD2E87A4ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroWiki.Shared.Models", "HeroWiki.Shared.Models\HeroWiki.Shared.Models.csproj", "{E1CA0B09-53DE-4275-BE2A-9A4BFEF644FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeroWiki.Shared.Data", "HeroWiki.Shared.Data\HeroWiki.Shared.Data.csproj", "{F14639DF-A848-42AA-9F94-98C7CD3C0E0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{5C1A91F7-61C5-4B93-BB61-7EFD2E87A4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C1A91F7-61C5-4B93-BB61-7EFD2E87A4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C1A91F7-61C5-4B93-BB61-7EFD2E87A4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1CA0B09-53DE-4275-BE2A-9A4BFEF644FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1CA0B09-53DE-4275-BE2A-9A4BFEF644FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1CA0B09-53DE-4275-BE2A-9A4BFEF644FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1CA0B09-53DE-4275-BE2A-9A4BFEF644FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F14639DF-A848-42AA-9F94-98C7CD3C0E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14639DF-A848-42AA-9F94-98C7CD3C0E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14639DF-A848-42AA-9F94-98C7CD3C0E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14639DF-A848-42AA-9F94-98C7CD3C0E0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

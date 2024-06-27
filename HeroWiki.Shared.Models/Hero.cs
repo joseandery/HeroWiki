@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeroWiki_Console
 {
-    internal class Hero
+    public class Hero
     {
         public Hero(string name, string slogan)
         {

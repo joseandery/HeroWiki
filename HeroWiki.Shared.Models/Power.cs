@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeroWiki_Console
 {
-    internal class Power
+    public class Power
     {
         public Power(string name)
         {

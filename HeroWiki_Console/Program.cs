@@ -1,4 +1,17 @@
-﻿using HeroWiki_Console;
+﻿using HeroWiki.Shared.Data.DB;
+using HeroWiki_Console;
+
+
+var HeroDAL = new HeroDAL();
+var heroList = HeroDAL.Read();
+foreach ( var hero in heroList ) Console.WriteLine(hero);
+
+HeroDAL.Create(new Hero("Garoto Goma", "Flexibilidade!"));
+
+heroList = HeroDAL.Read();
+foreach (var hero in heroList) Console.WriteLine(hero);
+
+return;
 
 Dictionary<string, Hero> HeroDict = new();
 
