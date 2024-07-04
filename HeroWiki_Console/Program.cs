@@ -51,10 +51,10 @@ void PowerGet()
     Console.WriteLine("Listagem de Poder\n");
     Console.Write("Digite o herói cujo poder você quer listar: ");
     string heroName = Console.ReadLine();
-    if (HeroDict.ContainsKey(heroName))
+    var targetHero = HeroDAL.ReadBy(a => a.Name.Equals(heroName));
+    if (targetHero is not null)
     {
-        Hero hero = HeroDict[heroName];
-        hero.ShowPowers();
+        targetHero.ShowPowers();
     }
     else Console.WriteLine($"Herói {heroName} não encontrado");
 }
@@ -67,6 +67,7 @@ void HeroGet()
     {
         Console.WriteLine(hero);
     }
+    Console.ReadKey();
 }
 
 void PowerRegister()
@@ -75,12 +76,13 @@ void PowerRegister()
     Console.WriteLine("Registro de Poder\n");
     Console.Write("Digite o herói cujo poder você quer registrar: ");
     string heroName = Console.ReadLine();
-    if (HeroDict.ContainsKey(heroName))
+    var targetHero = HeroDAL.ReadBy(a=> a.Name.Equals(heroName));
+    if (targetHero is not null)
     {
         Console.Write($"Qual o nome do poder de {heroName}? ");
         string powerName = Console.ReadLine();
-        Hero hero = HeroDict[heroName];
-        hero.AddPower(new Power(powerName));
+        targetHero.AddPower(new Power(powerName));
+        HeroDAL.Update(targetHero);
         Console.WriteLine($"Poder {powerName} de {heroName} adicionado!");
     }
     else Console.WriteLine($"Herói {heroName} não encontrado");

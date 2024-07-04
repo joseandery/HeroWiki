@@ -20,6 +20,8 @@ namespace HeroWiki_Console
         //public string Description { get; set; }
         public int Strength { get; set; }
 
+        public virtual Hero? Hero { get; set; }
+
         public override string ToString()
         {
             return $@"Poder: {Name}";

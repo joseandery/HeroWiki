@@ -18,17 +18,17 @@ namespace HeroWiki_Console
         public string Name { get; set; }
         public string Slogan { get; set; }
 
-        public List<Power> powers = new List<Power>();
+        public virtual ICollection<Power> Powers { get; set; } = new List<Power>();
 
         public void AddPower(Power power)
         {
-            powers.Add(power); 
+            Powers.Add(power); 
         }
 
         public void ShowPowers()
         {
             Console.WriteLine($"Poderes de {Name}:");
-            foreach (var power in powers)
+            foreach (var power in Powers)
             {
                 Console.WriteLine(power);
             }
