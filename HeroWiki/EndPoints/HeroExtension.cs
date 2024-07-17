@@ -1,6 +1,7 @@
 ﻿using HeroWiki.Requests;
 using HeroWiki.Responses;
 using HeroWiki.Shared.Data.DB;
+using HeroWiki.Shared.Models;
 using HeroWiki_Console;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -19,9 +20,15 @@ namespace HeroWiki.EndPoints
                 return Results.Ok(heroResponseList);
             });
 
-            app.MapPost("/Heros", ([FromServices] DAL<Hero> dal, [FromBody] HeroRequest heroRequest) =>
+            app.MapPost("/Heros", ([FromServices] DAL<Hero> dal, [FromServices] DAL<League> dalLeague,[FromBody] HeroRequest heroRequest) =>
             {
-                dal.Create(new Hero(heroRequest.name, heroRequest.slogan));
+                var hero = new Hero(heroRequest.name, heroRequest.slogan)
+                {
+                    Leagues = heroRequest.Leagues is not null ? 
+                    LeagueRequestConverter(heroRequest.Leagues, dalLeague) : 
+                    new List<League>()
+                };
+                dal.Create(hero);
                 return Results.Ok();
             });
 
@@ -61,5 +68,22 @@ namespace HeroWiki.EndPoints
             return new HeroResponse(hero.Id, hero.Name, hero.Slogan);
         }
 
+        private static ICollection<League> LeagueRequestConverter(ICollection<LeagueRequest> leagues, DAL<League> dalLeague)
+        {
+            var leagueList = new List<League>();
+            foreach (var item in leagues)
+            {
+                var entity = RequestToEntity(item);
+                var league = dalLeague.ReadBy(l => l.Name.ToUpper().Equals(entity.Name.ToUpper()));
+                if (league is not null) leagueList.Add(league);
+                else leagueList.Add(entity);
+            }
+            return leagueList;
+        }     
+
+        private static League RequestToEntity(LeagueRequest l)
+        {
+            return new League() {Name = l.Name};
+        }
     }
 }

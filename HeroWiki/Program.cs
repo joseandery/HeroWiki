@@ -1,5 +1,6 @@
 using HeroWiki.EndPoints;
 using HeroWiki.Shared.Data.DB;
+using HeroWiki.Shared.Models;
 using HeroWiki_Console;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
@@ -10,6 +11,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 builder.Services.AddDbContext <HeroWikiContext> ();
 builder.Services.AddTransient<DAL<Hero>> ();
 builder.Services.AddTransient<DAL<Power>>();
+builder.Services.AddTransient<DAL<League>>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +20,7 @@ var app = builder.Build();
 
 app.AddEndPointsHero();
 app.AddEndPointsPower();
+app.AddEndPointsLeague();
 
 app.UseSwagger();
 app.UseSwaggerUI();

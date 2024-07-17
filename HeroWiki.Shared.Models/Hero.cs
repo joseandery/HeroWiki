@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HeroWiki.Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace HeroWiki_Console
         public string Slogan { get; set; }
 
         public virtual ICollection<Power> Powers { get; set; } = new List<Power>();
+
+        public virtual ICollection<League> Leagues { get; set; }
 
         public void AddPower(Power power)
         {
