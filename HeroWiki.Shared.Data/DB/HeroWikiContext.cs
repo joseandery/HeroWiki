@@ -1,5 +1,7 @@
-﻿using HeroWiki.Shared.Models;
+﻿using HeroWiki.Shared.Data.Models;
+using HeroWiki.Shared.Models;
 using HeroWiki_Console;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace HeroWiki.Shared.Data.DB
 {
-    public class HeroWikiContext : DbContext
+    public class HeroWikiContext : IdentityDbContext<AccessUser, AccessRole, int>
     {
         public DbSet<Hero> Hero { get; set; }
         public DbSet<Power> Power { get; set; }
@@ -24,6 +26,7 @@ namespace HeroWiki.Shared.Data.DB
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Hero>().HasMany(c => c.Leagues).WithMany(c => c.Heros);
         }
     }

@@ -11,8 +11,11 @@ namespace HeroWiki.EndPoints
     {
         public static void AddEndPointsPower(this WebApplication app)
         {
+            var groupBuilder = app.MapGroup("powers")
+                .RequireAuthorization()
+                .WithTags("Powers");
 
-            app.MapGet("/Power", ([FromServices] DAL<Power> dal) =>
+            groupBuilder.MapGet("", ([FromServices] DAL<Power> dal) =>
             {
                 var powerList = dal.Read();
                 if (powerList is null) return Results.NotFound();
@@ -20,13 +23,13 @@ namespace HeroWiki.EndPoints
                 return Results.Ok(powerResponseList);
             });
 
-            app.MapPost("/Power", ([FromServices] DAL<Power> dal, [FromBody] PowerRequest powerRequest) =>
+            groupBuilder.MapPost("", ([FromServices] DAL<Power> dal, [FromBody] PowerRequest powerRequest) =>
             {
                 dal.Create(new Power(powerRequest.name));
                 return Results.Ok();
             });
 
-            app.MapDelete("/Power/{id}", ([FromServices] DAL<Power> dal, int id) =>
+            groupBuilder.MapDelete("/{id}", ([FromServices] DAL<Power> dal, int id) =>
             {
                 var power = dal.ReadBy(a => a.Id == id);
                 if (power is null) return Results.NotFound();
@@ -34,7 +37,7 @@ namespace HeroWiki.EndPoints
                 return Results.NoContent();
             });
 
-            app.MapPut("/Power", ([FromServices] DAL<Power> dal, [FromBody] PowerEditRequest powerRequest) =>
+            groupBuilder.MapPut("", ([FromServices] DAL<Power> dal, [FromBody] PowerEditRequest powerRequest) =>
             {
                 var powerToEdit = dal.ReadBy(a => a.Id == powerRequest.id);
                 if (powerToEdit is null) return Results.NotFound();
@@ -43,7 +46,7 @@ namespace HeroWiki.EndPoints
                 return Results.Ok();
             });
 
-            app.MapGet("/Power{id}", ([FromServices] DAL<Power> dal, int id) =>
+            groupBuilder.MapGet("/{id}", ([FromServices] DAL<Power> dal, int id) =>
             {
                 var power = dal.ReadBy(a => a.Id == id);
                 if (power is null) return Results.NotFound();

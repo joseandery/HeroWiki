@@ -12,15 +12,18 @@ namespace HeroWiki.EndPoints
     {
         public static void AddEndPointsHero(this WebApplication app)
         {
-            app.MapGet("/Heros", ([FromServices] DAL<Hero> dal) =>
+
+            var groupBuilder = app.MapGroup("heros").RequireAuthorization().WithTags("Heros");
+
+            groupBuilder.MapGet("", ([FromServices] DAL<Hero> dal) =>
             {
                 var heroList = dal.Read();
                 if (heroList is null) return Results.NotFound();
                 var heroResponseList = EntityListToResponseList(heroList);
                 return Results.Ok(heroResponseList);
-            });
+            }).RequireAuthorization();
 
-            app.MapPost("/Heros", ([FromServices] DAL<Hero> dal, [FromServices] DAL<League> dalLeague,[FromBody] HeroRequest heroRequest) =>
+            groupBuilder.MapPost("", ([FromServices] DAL<Hero> dal, [FromServices] DAL<League> dalLeague,[FromBody] HeroRequest heroRequest) =>
             {
                 var hero = new Hero(heroRequest.name, heroRequest.slogan)
                 {
@@ -32,7 +35,7 @@ namespace HeroWiki.EndPoints
                 return Results.Ok();
             });
 
-            app.MapDelete("/Heros/{id}", ([FromServices] DAL<Hero> dal, int id) =>
+            groupBuilder.MapDelete("/{id}", ([FromServices] DAL<Hero> dal, int id) =>
             {
                 var hero = dal.ReadBy(a => a.Id == id);
                 if (hero is null) return Results.NotFound();
@@ -40,7 +43,7 @@ namespace HeroWiki.EndPoints
                 return Results.NoContent();
             });
 
-            app.MapPut("/Heros", ([FromServices] DAL<Hero> dal, [FromBody] HeroEditRequest heroRequest) =>
+            groupBuilder.MapPut("", ([FromServices] DAL<Hero> dal, [FromBody] HeroEditRequest heroRequest) =>
             {
                 var heroToEdit = dal.ReadBy(a => a.Id == heroRequest.id);
                 if (heroToEdit is null) return Results.NotFound();
@@ -50,7 +53,7 @@ namespace HeroWiki.EndPoints
                 return Results.Ok();
             });
 
-            app.MapGet("/Heros{id}", ([FromServices] DAL<Hero> dal, int id) =>
+            groupBuilder.MapGet("/{id}", ([FromServices] DAL<Hero> dal, int id) =>
             {
                 var hero = dal.ReadBy(a => a.Id ==id);
                 if (hero is null) return Results.NotFound();

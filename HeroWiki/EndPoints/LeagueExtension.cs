@@ -11,7 +11,11 @@ namespace HeroWiki.EndPoints
     {
         public static void AddEndPointsLeague (this WebApplication app)
         {
-            app.MapGet("/Leagues", ([FromServices] DAL<League> dal) =>
+            var groupBuilder = app.MapGroup("leagues")
+                .RequireAuthorization()
+                .WithTags("Leagues");
+
+            groupBuilder.MapGet("", ([FromServices] DAL<League> dal) =>
             {
                 var leagueList = dal.Read();
                 if (leagueList is null) return Results.NotFound();
@@ -19,13 +23,13 @@ namespace HeroWiki.EndPoints
                 return Results.Ok(leagueResponseList);
             });
 
-            app.MapPost("/Leagues", ([FromServices] DAL<League> dal, [FromBody] LeagueRequest leagueRequest) =>
+            groupBuilder.MapPost("", ([FromServices] DAL<League> dal, [FromBody] LeagueRequest leagueRequest) =>
             {
                 dal.Create(RequestToEntity(leagueRequest));
                 return Results.Ok();
             });
 
-            app.MapDelete("/Leagues/{id}", ([FromServices] DAL<League> dal, int id) =>
+            groupBuilder.MapDelete("/{id}", ([FromServices] DAL<League> dal, int id) =>
             {
                 var league = dal.ReadBy(a => a.Id == id);
                 if (league is null) return Results.NotFound();
