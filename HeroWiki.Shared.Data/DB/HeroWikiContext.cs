@@ -17,7 +17,9 @@ namespace HeroWiki.Shared.Data.DB
         public DbSet<Power> Power { get; set; }
         public DbSet<League> League { get; set; }
 
-        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HeroWiki_BD_V0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        //private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HeroWiki_BD_V0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+
+        private string connectionString = "Server=tcp:herowikiserver.database.windows.net,1433;Initial Catalog=HeroWiki_BD_V0;Persist Security Info=False;User ID=heroserver;Password=Senh@100;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
